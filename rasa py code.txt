@@ -1,0 +1,23 @@
+import requests
+
+sender = input("What is your name?\n")
+
+bot_message = ""
+while bot_message != "Bye":
+	message = input("What's your message?\n")
+
+	print("Sending message now...")
+
+	r = requests.post('http://localhost:5002/webhooks/rest/webhook', json={"sender": sender, "message": message})
+
+	print("Bot says, ")
+	for i in r.json():
+		bot_message = i['text']
+		print(f"{i['text']}")
+
+  local python file.
+
+
+start up Rasa with: rasa run -m models --endpoints endpoints.yml --port 5002 --credentials credentials.yml
+
+This will start up Rasa up on port 5002 as a rest endpoint, and it will be connected to your actions server which you should have configured in endpoints.yml.
