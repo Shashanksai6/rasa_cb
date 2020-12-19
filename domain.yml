@@ -1,0 +1,61 @@
+intents:
+- greet
+- goodbye
+- affirm
+- request
+- brands
+- models
+- location
+- year
+- gearbox
+- seller-type
+- phone
+- distance
+- consumption
+- price
+- power
+- size
+- interior-color
+- exterieure-color
+- seller_name
+- energy
+- thanks
+- deny
+
+entities:
+- KILOMETRE
+- date
+- region
+- car_brand
+- models
+- request
+- km
+- price
+- power
+
+slots:
+  brands: 
+    type: unfeaturized
+  year:
+    type: unfeaturized
+  price:
+    type: unfeaturized
+  power:
+    type: unfeaturized
+  seller-type:
+    type: unfeaturized
+  models:
+    type: unfeaturized
+  distance:
+    type: unfeaturized
+
+responses:
+  utter_greet:
+  - text: Hello! I'm an eCommerce bot. I can help you to buy or sell a car or other
+      facilities in your preferred car
+  utter_request:
+  - text: Are you interested in buying or selling cars?
+  utter_queries:
+  - text: Will you answer few questions for us to understand your choices?
+  utter_ask_brands:
+  - text: Which car brands do you need to buy?
