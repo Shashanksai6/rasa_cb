@@ -1,0 +1,36 @@
+Gensim - the fastest libraries t train the Wordvectors
+
+from gensim.models import Word2Vec
+
+# Gensim needs a list of lists to represent tokens in a document.
+# In real life you’d read a text file and turn them into lists here.
+text = ["this is a sentence", "so is this", "and we're all talking"]
+tokens = [t.split(" ") for t in text]
+
+# This is where we train new word embeddings.
+model = Word2Vec(sentences=tokens, size=10, window=3,
+                 min_count=1, iter=5, workers=2)
+
+# This is where they are saved to disk.
+model.wv.save("wordvectors.kv")
+language: en
+pipeline:
+- name: WhitespaceTokenizer
+- name: LexicalSyntacticFeaturizer
+- name: CountVectorsFeaturizer
+  analyzer: char_wb
+  min_ngram: 1
+  max_ngram: 4
+- name: rasa_nlu_examples.featurizers.dense.GensimFeaturizer
+  cache_dir: path  # This is the path where the word vectors are saved.
+  file: wordvectors.kv  # This is the file we just created.
+- name: DIETClassifier
+  epochs: 100
+
+policies:
+- name: MemoizationPolicy
+#   - name: TEDPolicy
+#     max_history: 5
+#     epochs: 100
+#   - name: RulePolicy
+
